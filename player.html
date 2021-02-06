@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<meta lang='ja'>
+<head>
+  <meta charset="UTF-8">
+  <title>Repeat YouTube Video</title>
+</head>
+
+<body>
+  <div id="player"></div>
+
+  <script>
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    var player;
+    function onYouTubeIframeAPIReady() {
+	player = new YT.Player('player', {
+	    height: '360',
+	    width: '640',
+	    videoId: 'HhZW-XZShhs',
+	    events: {}
+	});
+    }
+    function backToTop() {
+	player.seekTo(0);
+    }
+    function setPlaybackRate(rate) {
+	player.setPlaybackRate(rate);
+    }
+  </script>
+  
+  <button onclick="backToTop()">Back To Top</button>
+  <button onclick="setPlaybackRate(0.75)">x0.75</button>
+  <button onclick="setPlaybackRate(0.8)">x0.8</button>
+  <button onclick="setPlaybackRate(0.9)">x0.9</button>
+</body>
+
+</html>
