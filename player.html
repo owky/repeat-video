@@ -29,12 +29,21 @@
     function setPlaybackRate(rate) {
 	player.setPlaybackRate(rate);
     }
+    function changeVideo() {
+	player.loadVideoById(document.getElementById("video_id").value)
+    }
   </script>
   
   <button onclick="backToTop()">Back To Top</button>
   <button onclick="setPlaybackRate(0.75)">x0.75</button>
   <button onclick="setPlaybackRate(0.8)">x0.8</button>
   <button onclick="setPlaybackRate(0.9)">x0.9</button>
+
+  <p>
+    <input type="text" id="video_id" value="" placeholder="zQhoI1FqUdM">
+    <button onclick="changeVideo()">Play!</button>
+  </p>
+  https://www.youtube.com/watch?v=<font color="red">zQhoI1FqUdM</font>
 </body>
 
 </html>
