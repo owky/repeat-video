@@ -23,21 +23,33 @@
 	    events: {}
 	});
     }
-    function backToTop() {
+    function backToTop () {
 	player.seekTo(0);
     }
-    function setPlaybackRate(rate) {
-	player.setPlaybackRate(rate);
-    }
-    function changeVideo() {
+    function changeVideo () {
 	player.loadVideoById(document.getElementById("video_id").value)
+    }
+    function changeSpeed () {
+	speed = document.getElementById("speedSlider").value / 100;
+	document.getElementById("speed").innerHTML = speed.toFixed(1);
+	player.setPlaybackRate(speed);
+    }
+    function speedUp () {
+	document.getElementById("speedSlider").stepUp();
+	changeSpeed();
+    }
+    function speedDown () {
+	document.getElementById("speedSlider").stepDown();
+	changeSpeed();
     }
   </script>
   
+  Speed : x
+  <span id="speed">1.0</span>
+  <span onclick="speedDown()">◀</span><span onclick="speedUp()">▶</span>
+  <input id="speedSlider" type="range" value="100" step="10" oninput="changeSpeed()">
+
   <button onclick="backToTop()">Back To Top</button>
-  <button onclick="setPlaybackRate(0.75)">x0.75</button>
-  <button onclick="setPlaybackRate(0.8)">x0.8</button>
-  <button onclick="setPlaybackRate(0.9)">x0.9</button>
 
   <p>
     <input type="text" id="video_id" value="" placeholder="zQhoI1FqUdM">
