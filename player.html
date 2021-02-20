@@ -9,6 +9,11 @@
   <div id="player"></div>
 
   <script>
+    var video_id = 'HhZW-XZShhs';
+    if (location.search.match(/\?vid=.+/)) {
+	video_id = location.search.split('?')[1].split('&')[0].split('=')[1];
+    }
+
     var tag = document.createElement('script');
     tag.src = "https://www.youtube.com/iframe_api";
     var firstScriptTag = document.getElementsByTagName('script')[0];
@@ -19,7 +24,7 @@
 	player = new YT.Player('player', {
 	    height: '360',
 	    width: '640',
-	    videoId: 'HhZW-XZShhs',
+	    videoId: video_id,
 	    events: {}
 	});
     }
