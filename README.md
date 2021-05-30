@@ -1,12 +1,15 @@
 # repeat-video
 
-## Build
+## Jekyll
 
-    $ docker run -it -v ${PWD}:/work ruby:2.7 /bin/bash
-    docker% cd /work
-    docker% bundle install
-    docker% jekyll build
+docker build
 
-## Start web server
+    $ docker build . -t my-jekyll
 
-    $ docker run --name repeat-video-nginx -p 8080:80 -v ${PWD}/_site:/usr/share/nginx/html:ro -d nginx
+jekyll serve
+
+    $ docker run -it -v ${PWD}:/work -p 4000:4000 my-jekyll
+
+jekyll build
+
+    $ docker run -it -v ${PWD}:/work my-jekyll build
