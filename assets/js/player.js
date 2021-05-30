@@ -39,3 +39,19 @@ function speedDown () {
 	document.getElementById("speedSlider").stepDown();
 	changeSpeed();
 }
+
+function repeater () {
+  if (!player) return;
+  if (typeof player.getPlayerState != "function") return;
+  if (player.getPlayerState() != 1) return;
+
+  from = parseInt(document.getElementById("repeatFrom").value)
+  to = parseInt(document.getElementById("repeatTo").value)
+  if (!from || !to) return;
+
+  if (player.getCurrentTime().toFixed(0) == to) {
+    player.seekTo(from);
+  }
+}
+
+setInterval(repeater, 500);
