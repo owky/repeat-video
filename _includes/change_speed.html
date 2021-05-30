@@ -1,0 +1,28 @@
+<div class="box">
+	  <div class="columns is-vcentered is-multiline is-mobile has-text-centered">
+	      <div class="column is-6">
+	          <p class="heading">Speed</p>
+	          <p class="title">
+		            x <span id="speed">1.0</span>
+	          </p>
+	      </div>
+
+	      <div class="column is-3">
+	          <p class="heading">down</p>
+	          <span class="icon" onclick="speedDown()">
+	              <i class="fas fa-4x fa-caret-down"></i>
+	          </span>
+	      </div>
+
+	      <div class="column is-3">
+	          <p class="heading">up</p>
+	          <span class="icon" onclick="speedUp()">
+	              <i class="fas fa-4x fa-caret-up"></i>
+	          </span>
+	      </div>
+
+	      <div class="column is-12">
+	          <input id="speedSlider" type="range" value="100" step="10" oninput="changeSpeed()">
+	      </div>
+	  </div>
+</div>

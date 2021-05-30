@@ -1,0 +1,24 @@
+<nav class="navbar is-black">
+    <div class="navbar-brand">
+        <div class="navbar-item">
+	          My YouTube Player
+        </div>
+    </div>
+
+    <div class="navbar-menu">
+        <div class="navbar-start">
+	          <div class="navbar-item">
+	              <input type="text" id="video_id" value="" placeholder="zQhoI1FqUdM">
+	              <button onclick="changeVideo()">Play!</button>
+	          </div>
+	          <div class="navbar-item">
+	              https://www.youtube.com/watch?v=<font color="red">zQhoI1FqUdM</font>
+	          </div>
+        </div>
+        <div class="navbar-end">
+	          <div class="navbar-item">
+	              <a class="button is-light is-small" href="javascript:url=location.href;var reg=new RegExp(/https:\/\/www\.youtube\.com\/watch\?v=([^&]+)/);url.match(reg)?location.href='http://192.168.11.60:8080/player.html?vid='+url.match(reg)[1]:alert('Youtube video is not found.');">Bookmarklet</a>
+	          </div>
+        </div>
+    </div>
+</nav>
