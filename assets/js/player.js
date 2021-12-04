@@ -40,6 +40,16 @@ function speedDown () {
 	changeSpeed();
 }
 
+function repeatFrom () {
+  time = player.getCurrentTime();
+  document.getElementById("repeatFrom").value = time.toFixed();
+}
+
+function repeatTo () {
+  time = player.getCurrentTime();
+  document.getElementById("repeatTo").value = time.toFixed();
+}
+
 function repeater () {
   if (!player) return;
   if (typeof player.getPlayerState != "function") return;
