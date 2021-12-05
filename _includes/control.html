@@ -1,8 +1,27 @@
 <div class="box has-text-centered">
-	  <div>
-	      <p class="heading">Back to top</p>
-	      <span class="icon" onclick="backToTop()">
-	          <i class="fas fa-2x fa-step-backward"></i>
-	      </span>
+	<div class="columns is-vcentered is-multiline is-mobile">
+		<div class="column is-12">
+			<p class="heading">control</p>
+		</div>
+		<div class="column is-3">
+			<span class="icon" onclick="backToTop()">
+				<i class="fas fa-2x fa-step-backward"></i>
+			</span>  
+		</div>
+		<div class="column is-3">
+			<span class="icon" onclick="backward()">
+				<i class="fas fa-2x fa-backward"></i>
+			</span>
+		</div>
+		<div class="column is-3">
+			<span class="icon" onclick="play()">
+				<i class="fas fa-2x fa-play" id="playerStatus"></i>
+			</span>
+		</div>
+		<div class="column is-3">
+			<span class="icon" onclick="forward()">
+				<i class="fas fa-2x fa-forward"></i>
+			</span>
+		</div>
 	  </div>
 </div>
