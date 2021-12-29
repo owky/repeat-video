@@ -16,14 +16,15 @@ function addHistory (video_id) {
 }
 
 function reloadHistory () {
-	ul = document.getElementById("history");
-	while (ul.firstChild) {
-		ul.removeChild(ul.firstChild);
+	div = document.getElementById("history");
+	while (div.firstChild) {
+		div.removeChild(div.firstChild);
 	}
 	getHistory().forEach(elm => {
-		li = document.createElement('li');
-		li.innerHTML = elm;
-		li.setAttribute('onclick', 'changeVideo("' + elm + '")')
-		ul.appendChild(li);
+		img = document.createElement('img');
+        img.setAttribute('src', 'http://img.youtube.com/vi/' + elm + '/default.jpg');
+        img.setAttribute('hspace', '5');
+		img.setAttribute('onclick', 'changeVideo("' + elm + '")')
+		div.appendChild(img);
 	})
 }
