@@ -1,6 +1,41 @@
 var video_id = 'HhZW-XZShhs';
 if (location.search.match(/\?vid=.+/)) {
 	video_id = location.search.split('?')[1].split('&')[0].split('=')[1];
+	addHistory(video_id);
+}
+
+window.onload = function () {
+	reloadHistory();
+}
+
+function getHistory () {
+	data = window.localStorage.getItem("history");
+	if (data) {
+		return JSON.parse(data);
+	} else {
+		return [];
+	}
+}
+
+function addHistory (video_id) {
+	h = getHistory();
+	if (!h.includes(video_id)) {
+		h.push(video_id)
+		window.localStorage.setItem("history", JSON.stringify(h));
+	}
+}
+
+function reloadHistory () {
+	ul = document.getElementById("history");
+	while (ul.firstChild) {
+		ul.removeChild(ul.firstChild);
+	}
+	getHistory().forEach(elm => {
+		li = document.createElement('li');
+		li.innerHTML = elm;
+		li.setAttribute('onclick', 'changeVideo("' + elm + '")')
+		ul.appendChild(li);
+	})
 }
 
 var tag = document.createElement('script');
@@ -54,8 +89,13 @@ function play() {
 	}
 }
 
-function changeVideo () {
-	player.loadVideoById(document.getElementById("video_id").value)
+function changeVideo (video_id = null) {
+	if (!video_id) {
+		video_id = document.getElementById("video_id").value;
+	}
+	player.loadVideoById(video_id);
+	addHistory(video_id);
+	reloadHistory();
 }
 
 function changeSpeed () {
