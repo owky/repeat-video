@@ -19,7 +19,7 @@ function onYouTubeIframeAPIReady() {
 }
 
 function changePlayerIcon (event) {
-	switch (event.data) {
+	 switch (event.data) {
 		case 0:
 			document.getElementById("playerStatus").className = "fas fa-2x fa-play";
 			break;
@@ -74,20 +74,39 @@ function speedDown () {
 	changeSpeed();
 }
 
+var repeat = false;
+
+function repeatOn () {
+	document.getElementById("repeat-toggle").className = "has-text-primary has-text-weight-bold";
+	repeat = true;
+}
+
+function repeatOff () {
+	document.getElementById("repeat-toggle").className = "";
+	repeat = false;
+}
+
+function toggleRepeat () {
+	repeat ? repeatOff() : repeatOn() ;
+}
+
 function repeatFrom () {
-  time = player.getCurrentTime();
-  document.getElementById("repeatFrom").value = time.toFixed();
+	repeatOn()
+	time = player.getCurrentTime();
+	document.getElementById("repeatFrom").value = time.toFixed();
 }
 
 function repeatTo () {
-  time = player.getCurrentTime();
-  document.getElementById("repeatTo").value = time.toFixed();
+	repeatOn();
+	time = player.getCurrentTime();
+	document.getElementById("repeatTo").value = time.toFixed();
 }
 
 function repeater () {
   if (!player) return;
   if (typeof player.getPlayerState != "function") return;
   if (player.getPlayerState() != 1) return;
+  if (!repeat) return;
 
   from = parseInt(document.getElementById("repeatFrom").value)
   to = parseInt(document.getElementById("repeatTo").value)
