@@ -3,28 +3,24 @@ function getHistory () {
 	if (data) {
 		return JSON.parse(data);
 	} else {
-		return [];
+		return {};
 	}
 }
 
-function addHistory (video_id) {
-	h = getHistory();
-	if (!h.includes(video_id)) {
-		h.push(video_id)
-		window.localStorage.setItem("history", JSON.stringify(h));
-	}
+function setHistory () {
+	h = getHistory()
+	h[video_id] = {speed: getSpeed()};
+	window.localStorage.setItem("history", JSON.stringify(h));
 }
 
-function reloadHistory () {
+function showHistory () {
 	div = document.getElementById("history");
-	while (div.firstChild) {
-		div.removeChild(div.firstChild);
-	}
-	getHistory().forEach(elm => {
+	div.innerHTML = ""
+	for (vid in getHistory()) {
 		img = document.createElement('img');
-        img.setAttribute('src', 'http://img.youtube.com/vi/' + elm + '/default.jpg');
-        img.setAttribute('hspace', '5');
-		img.setAttribute('onclick', 'changeVideo("' + elm + '")')
+		img.setAttribute('src', 'http://img.youtube.com/vi/' + vid + '/default.jpg');
+		img.setAttribute('hspace', '5');
+		img.setAttribute('onclick', 'changeVideo("' + vid + '")');
 		div.appendChild(img);
-	})
+	}
 }
