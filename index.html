@@ -18,5 +18,9 @@ layout: default
             </div>
         </div>
         {% include history.html %}
+        <button onClick="google_api_oauth()">Auth</button>
+        <button onClick="youtube_search()">Search</button>
+        <input type="text" id="query">
+        <div id="result"></div>
     </div>
 </section>
