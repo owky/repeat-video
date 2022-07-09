@@ -7,7 +7,7 @@ if (window.location.href.match(/#access_token=.+/)) {
 function google_api_oauth() {
     client_id = "828562580542-6hmetuuhj9rtavsdsghp1jn16f5m97pl.apps.googleusercontent.com";
     redirect_uri = "https://" + location.host;
-    scope = "https://www.googleapis.com/auth/youtube";
+    scope = "https://www.googleapis.com/auth/youtube.readonly";
     param = "?client_id=" + client_id + "&redirect_uri=" + redirect_uri + "&response_type=token&scope=" + scope;
     window.location.href = "https://accounts.google.com/o/oauth2/auth" + param;
 }
