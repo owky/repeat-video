@@ -1,11 +1,7 @@
 var video_id = 'HhZW-XZShhs';
-if (location.search.match(/\?vid=.+/)) {
-	video_id = location.search.split('?')[1].split('&')[0].split('=')[1];
-	setHistory();
-}
 
 window.onload = function () {
-	showHistory();
+	showPlayList();
 }
 
 var tag = document.createElement('script');
@@ -23,13 +19,13 @@ function onYouTubeIframeAPIReady() {
 	});
 }
 
-function changeVideo (vid = null) {
+function changeVideo (vid, title, thumbnail_url) {
 	if (vid) video_id = vid;
 	player.loadVideoById(video_id);
-	if (h = getHistory()[video_id]) {
+	if (h = dataManager.playList[video_id]) {
 		document.getElementById("speedSlider").value = h['speed'] * 100;
 		changeSpeed()
 	}
-	setHistory();
-	showHistory();
+	dataManager.addPlayList(video_id, title, thumbnail_url);
+	showPlayList();
 }

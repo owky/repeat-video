@@ -17,7 +17,10 @@ layout: default
                 {% include repeat.html %}
             </div>
         </div>
-        {% include history.html %}
+
+        <div class="tile is-ancestor is-flex-wrap-wrap" id="play_list">
+        </div>
+
         <button onClick="google_api_oauth()">Auth</button>
         <button onClick="youtube_search()">Search</button>
         <input type="text" id="query">

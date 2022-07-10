@@ -24,13 +24,13 @@ function youtube_search() {
             .then(response => response.json())
             .then(json => {
                 json.items.forEach (item => {
-                    thumbnail_url = item["snippet"]["thumbnails"]["default"]["url"];
+                    thumbnail_url = item["snippet"]["thumbnails"]["high"]["url"];
                     title = item["snippet"]["title"];
                     video_id = item["id"]["videoId"];
 
                     img = document.createElement("img")
                     img.setAttribute("src", thumbnail_url);
-                    img.setAttribute("onclick", "changeVideo('" + video_id + "')");
+                    img.setAttribute("onclick", "changeVideo('" + video_id + "','" + title + "','" + thumbnail_url + "')");
                     span = document.createElement("span");
                     span.innerHTML = title;
 
