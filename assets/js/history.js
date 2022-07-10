@@ -28,16 +28,11 @@ function showPlayList() {
 
 		// card
 		card = document.createElement('div');
-		card.setAttribute('class', 'tile is-child card');
+		card.setAttribute('class', 'card');
 		card.appendChild(cardImage);
 		card.appendChild(cardHeader);
 
-		// tile
-		tile = document.createElement('div');
-		tile.setAttribute('class', 'tile is-parent is-3');
-		tile.appendChild(card);
-
-		list.appendChild(tile);
+		list.appendChild(card);
 	}
 }
 

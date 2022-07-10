@@ -24,20 +24,36 @@ function youtube_search() {
             .then(response => response.json())
             .then(json => {
                 json.items.forEach (item => {
-                    thumbnail_url = item["snippet"]["thumbnails"]["high"]["url"];
+                    thumbnail = item["snippet"]["thumbnails"]["high"]["url"];
                     title = item["snippet"]["title"];
-                    video_id = item["id"]["videoId"];
+                    vid = item["id"]["videoId"];
 
-                    img = document.createElement("img")
-                    img.setAttribute("src", thumbnail_url);
-                    img.setAttribute("onclick", "changeVideo('" + video_id + "','" + title + "','" + thumbnail_url + "')");
-                    span = document.createElement("span");
-                    span.innerHTML = title;
+            		// card-image
+            		cardImage = document.createElement('div');
+            		cardImage.setAttribute('class', 'card-image');
+            		figure = document.createElement('figure');
+            		figure.setAttribute('class', 'image is-4by3');
+            		img = document.createElement('img');
+            		img.setAttribute('src', thumbnail);
+            		img.setAttribute('onclick', 'changeVideo("' + vid + '","' + title + '","' + thumbnail + '")');
+            		cardImage.appendChild(figure);
+            		figure.appendChild(img);
 
-                    p = document.createElement("p");
-                    p.appendChild(img);
-                    p.appendChild(span);
-                    search_result.appendChild(p);
+            		// card-header
+            		cardHeader = document.createElement('header');
+            		cardHeader.setAttribute('class', 'card-header');
+            		p = document.createElement('p');
+            		p.setAttribute('class', 'card-header-title');
+            		p.innerHTML = title;
+            		cardHeader.appendChild(p);
+
+            		// card
+            		card = document.createElement('div');
+            		card.setAttribute('class', 'card');
+            		card.appendChild(cardImage);
+            		card.appendChild(cardHeader);
+
+                    search_result.appendChild(card);
                 })
             });
     }

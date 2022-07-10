@@ -5,25 +5,20 @@ layout: default
 {% include navbar.html %}
 
 <section class="section">
-    <div cass="container">
-        <div class="columns">
-            <div class="column is-8">
-                <div id="player"></div>
-            </div>
+  <div cass="container">
+    <div class="columns">
 
-            <div class="column">
-                {% include control.html %}
-                {% include change_speed.html %}
-                {% include repeat.html %}
-            </div>
-        </div>
+      <div class="column is-8">
+        <div id="player"></div>
+        {% include control.html %}
+        {% include change_speed.html %}
+        {% include repeat.html %}
+      </div>
 
-        <div class="tile is-ancestor is-flex-wrap-wrap" id="play_list">
-        </div>
+      <div class="column is-4">
+        {% include tab.html %}
+      </div>
 
-        <button onClick="google_api_oauth()">Auth</button>
-        <button onClick="youtube_search()">Search</button>
-        <input type="text" id="query">
-        <div id="result"></div>
     </div>
+  </div>
 </section>

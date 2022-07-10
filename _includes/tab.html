@@ -1,0 +1,20 @@
+<div class="tabs is-centered">
+    <ul>
+        <li class="is-active" id="play_list_tab" onclick="switchTab('play_list')">
+            <a>
+                <span class="icon is-small"><i class="fas fa-list" aria-hidden="true"></i></span>
+                <span>Play List</span>
+            </a>
+        </li>
+        <li id="search_tab" onclick="switchTab('search')">
+            <a>
+                <span class="icon is-small"><i class="fas fa-search" aria-hidden="true"></i></span>
+                <span>Search</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="play_list"></div>
+<div id="search" style="display: none;">
+    {% include search.html %}
+</div>
