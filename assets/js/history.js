@@ -46,7 +46,6 @@ class DataManager {
 
 	constructor() {
 		if (this.dataVersion == null || this.dataVersion < DataManager.currentDataVersion) {
-			alert("no data version.");
 			window.localStorage.clear();
 			window.localStorage.setItem("data_version", DataManager.currentDataVersion);
 		}
