@@ -1,5 +1,5 @@
 var dataManager = new DataManager();
-var video_id = null;
+var video_id = Object.keys(dataManager.playList).shift();
 var player;
 
 window.onload = function () {
