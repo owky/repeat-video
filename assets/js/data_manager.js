@@ -1,5 +1,5 @@
-static currentDataVersion = "1.0"
-var dataVersion = window.localStorage.getItem("data_version");
+currentDataVersion = "1.0"
+dataVersion = window.localStorage.getItem("data_version");
 if (dataVersion == null || dataVersion < currentDataVersion) {
 	window.localStorage.clear();
 	window.localStorage.setItem("data_version", DataManager.currentDataVersion);
