@@ -1,5 +1,4 @@
-var dataManager = new DataManager();
-var video_id = Object.keys(dataManager.playList).shift();
+var playList = new PlayList();
 var player;
 var controllerView = new ControllerView();
 
@@ -15,7 +14,7 @@ window.onload = function () {
 
 function onYouTubeIframeAPIReady() {
 	player = new YT.Player('player', {
-	  videoId: video_id,
+	  videoId: playList.first.vid,
 	  events: {
 		  'onStateChange': playerStateChanged
 	  }
@@ -32,14 +31,11 @@ function playerStateChanged (event) {
 }
 
 function changeVideo (vid, title, thumbnail_url) {
-	if (vid) video_id = vid;
-	player.loadVideoById(video_id);
-	if (h = dataManager.playList[video_id]) {
+	player.loadVideoById(vid);
+	if (h = playList.find(elm => elm.vid == vid)) {
 		document.getElementById("speedSlider").value = h['speed'] * 100;
 		changeSpeed()
 	}
-	dataManager.addPlayList(video_id, title, thumbnail_url);
-	showPlayList();
 }
 
 function switchTab(target) {

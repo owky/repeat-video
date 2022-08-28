@@ -1,11 +1,10 @@
 function showPlayList() {
 	list = document.getElementById("play_list");
 	list.innerHTML = ""
-	playList = dataManager.playList;
-	for (key in playList) {
-		vid = key;
-		title = playList[key]['title'];
-		thumbnail = playList[key]['thumbnail'];
+	for (video of playList) {
+		vid = video.vid;
+		title = video.title;
+		thumbnail = video.thumbnail;
 
 		// card-image
 		cardImage = document.createElement('div');

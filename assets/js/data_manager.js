@@ -1,35 +1,37 @@
-class DataManager {
-	static currentDataVersion = "1.0"
+static currentDataVersion = "1.0"
+var dataVersion = window.localStorage.getItem("data_version");
+if (dataVersion == null || dataVersion < currentDataVersion) {
+	window.localStorage.clear();
+	window.localStorage.setItem("data_version", DataManager.currentDataVersion);
+}
 
-	constructor() {
-		if (this.dataVersion == null || this.dataVersion < DataManager.currentDataVersion) {
-			window.localStorage.clear();
-			window.localStorage.setItem("data_version", DataManager.currentDataVersion);
-		}
-	}
-
-	get dataVersion() {
-		return window.localStorage.getItem("data_version");
-	}
-
-	get playList() {
-		var data = window.localStorage.getItem("play_list");
+class PlayList extends Array {
+	constructor () {
+		super();
+		let data = JSON.parse(window.localStorage.getItem("play_list"));
 		if (data) {
-			return JSON.parse(data);
-		} else {
-			return {};
+			for (let key in data) {
+				this.push(new Video(key, data[key]));
+			}
 		}
 	}
 
-	addPlayList(vid, title, thumbnail) {
-		var data = this.playList;
-		data[vid] = {title: title, thumbnail: thumbnail, speed: 1};
-		window.localStorage.setItem("play_list", JSON.stringify(data));
+	get first () {
+		if (this.length > 0) {
+			return this[0];
+		} else {
+			return new Video();
+		}
 	}
+}
 
-	changeSpeed(vid, speed) {
-		var data = this.playList;
-		data[vid]['speed'] = speed;
-		window.localStorage.setItem("play_list", JSON.stringify(data));
+class Video {
+	constructor (vid, data) {
+		this.vid = vid;
+		if (data) {
+			this.title = data['title'];
+			this.thumbnail = data['thumbnail'];
+			this.speed = data['speed'];
+		}
 	}
 }
