@@ -35,7 +35,7 @@ function youtube_search() {
             		figure.setAttribute('class', 'image is-4by3');
             		img = document.createElement('img');
             		img.setAttribute('src', thumbnail);
-            		img.setAttribute('onclick', 'changeVideo("' + vid + '","' + title + '","' + thumbnail + '")');
+            		img.setAttribute('onclick', 'addPlayList("' + vid + '","' + title + '","' + thumbnail + '")');
             		cardImage.appendChild(figure);
             		figure.appendChild(img);
 

@@ -1,5 +1,6 @@
 var playList = new PlayList();
 var player;
+var currentVideo = null
 var controllerView = new ControllerView();
 
 window.onload = function () {
@@ -14,11 +15,17 @@ window.onload = function () {
 
 function onYouTubeIframeAPIReady() {
 	player = new YT.Player('player', {
-	  videoId: playList.first.vid,
+	  videoId: null,
 	  events: {
-		  'onStateChange': playerStateChanged
+		  'onReady': playerIsReady,
+		  'onStateChange': playerStateChanged,
+		  'onPlaybackRateChange': playbackRateChanged
 	  }
 	});
+}
+
+function playerIsReady () {
+	changeVideo(playList.first.vid)
 }
 
 function playerStateChanged (event) {
@@ -30,12 +37,16 @@ function playerStateChanged (event) {
 	}
 }
 
-function changeVideo (vid, title, thumbnail_url) {
+function playbackRateChanged (event) {
+	playList.current.playbackRate = event.data;
+	playList.save();
+}
+
+function changeVideo (vid) {
 	player.loadVideoById(vid);
-	if (h = playList.find(elm => elm.vid == vid)) {
-		document.getElementById("speedSlider").value = h['speed'] * 100;
-		changeSpeed()
-	}
+	playList.current = playList.getVideoById(vid);
+	document.getElementById("speedSlider").value = playList.current.playbackRate * 100;
+	changeSpeed()
 }
 
 function switchTab(target) {
@@ -45,4 +56,10 @@ function switchTab(target) {
     document.getElementById("search_tab").removeAttribute("class");
     document.getElementById(target).style.display = "block";
     document.getElementById(target + "_tab").setAttribute("class", "is-active");
+}
+
+function addPlayList(vid, title, thumbnail) {
+	playList.push(new Video({'vid': vid, 'title': title, 'thumbnail': thumbnail}));
+	playList.save();
+	changeVideo(vid);
 }

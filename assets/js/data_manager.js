@@ -8,11 +8,18 @@ if (dataVersion == null || dataVersion < currentDataVersion) {
 class PlayList extends Array {
 	constructor () {
 		super();
+		this.current = null;
 		let data = JSON.parse(window.localStorage.getItem("play_list"));
 		if (data) {
 			for (let key in data) {
-				this.push(new Video(key, data[key]));
+				this.push(new Video({
+					'vid': key,
+					'title': data[key]['title'],
+					'thumbnail': data[key]['thumbnail'],
+					'speed': data[key]['speed']
+				}));
 			}
+			this.current = this[0];
 		}
 	}
 
@@ -23,15 +30,25 @@ class PlayList extends Array {
 			return new Video();
 		}
 	}
+
+	getVideoById (vid) {
+		return this.find ( video => video.vid == vid);
+	}
+
+	save () {
+		var raw = {};
+		for (let v of this) {
+			raw[v.vid] = {'title': v.title, 'thumbnail': v.thumbnail, 'speed': v.playbackRate};
+		}
+		window.localStorage.setItem('play_list', JSON.stringify(raw));
+	}
 }
 
 class Video {
-	constructor (vid, data) {
-		this.vid = vid;
-		if (data) {
-			this.title = data['title'];
-			this.thumbnail = data['thumbnail'];
-			this.speed = data['speed'];
-		}
+	constructor (hash={}) {
+		this.vid = hash['vid'];
+		this.title = hash['title'];
+		this.thumbnail = hash['thumbnail'];
+		this.playbackRate = hash['speed'];
 	}
 }
