@@ -1,6 +1,7 @@
 var dataManager = new DataManager();
 var video_id = Object.keys(dataManager.playList).shift();
 var player;
+var controllerView = new ControllerView();
 
 window.onload = function () {
     // YouTube iFrame APIのロード
@@ -16,9 +17,18 @@ function onYouTubeIframeAPIReady() {
 	player = new YT.Player('player', {
 	  videoId: video_id,
 	  events: {
-		  'onStateChange': changePlayerIcon
+		  'onStateChange': playerStateChanged
 	  }
 	});
+}
+
+function playerStateChanged (event) {
+	state = event.data
+	controllerView.changePlayState(state)
+	switch (state) {
+		case 0:
+			//playVideo(playList.next);
+	}
 }
 
 function changeVideo (vid, title, thumbnail_url) {

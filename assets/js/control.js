@@ -1,15 +1,17 @@
-function changePlayerIcon (event) {
-    switch (event.data) {
-       case 0:
-           document.getElementById("playerStatus").className = "fas fa-2x fa-play";
-           break;
-       case 1:
-           document.getElementById("playerStatus").className = "fas fa-2x fa-pause";
-           break;
-       case 2:
-           document.getElementById("playerStatus").className = "fas fa-2x fa-play";
-           break;
-   }
+class ControllerView {
+    changePlayState (state) {
+        switch (state) {
+            case 0:
+                document.getElementById("playerStatus").className = "fas fa-2x fa-play";
+                break;
+            case 1:
+                document.getElementById("playerStatus").className = "fas fa-2x fa-pause";
+                break;
+            case 2:
+                document.getElementById("playerStatus").className = "fas fa-2x fa-play";
+                break;
+        }     
+    }
 }
 
 function backToTop () {
