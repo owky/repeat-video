@@ -16,9 +16,21 @@ layout: default
       </div>
 
       <div class="column is-4">
-        {% include tab.html %}
+          {% include tab.html %}
       </div>
 
     </div>
   </div>
+
 </section>
+
+<script>
+ var yt_player;
+ var default_video = new Video('M7lc1UVf-VE');
+ var youtubeIframeApi = new YoutubeIframeAPI();
+ var videoControlPane = new VideoControlPane();
+ function onYouTubeIframeAPIReady() {
+     youtubeIframeApi.initPlayer(default_video);
+     videoControlPane.setPlayerAPI(youtubeIframeApi);
+ }
+</script>
