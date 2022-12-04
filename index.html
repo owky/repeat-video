@@ -29,7 +29,10 @@ layout: default
  var playList = new PlayList();
  var videoControlPane = new VideoControlPane();
  var playListPane = new PlayListPane();
+ var searchPane = new SearchPane();
+ var tabPane = new TabPane();
  var youtubeIframeApi = new YoutubeIframeAPI();
+ var youtubeSearchApi = new YoutubeSearchAPI();
 
  function onYouTubeIframeAPIReady() {
      youtubeIframeApi.initPlayer(playList[0]);
