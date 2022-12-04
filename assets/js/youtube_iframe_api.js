@@ -19,13 +19,13 @@ class YoutubeIframeAPI {
   }
 
   load(video) {
-    console.log(this.yt_player);
     this.yt_player.loadVideoById(video.id);
   }
 
   play() {
+    console.log("play api");
     var state = this.yt_player.getPlayerState();
-    if (this.state == 1) {
+    if (state == 1) {
       this.yt_player.pauseVideo();
     } else {
       this.yt_player.playVideo();

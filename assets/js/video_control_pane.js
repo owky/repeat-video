@@ -13,9 +13,11 @@ class VideoControlPane {
   change(video) {
     this.video = video;
     this.player_api.load(video);
+    document.getElementById("playerStatus").className = "fas fa-2x fa-pause";
   }
 
   play() {
+    console.log("play")
     var state = this.player_api.play();
     if (state == 1) {
       document.getElementById("playerStatus").className = "fas fa-2x fa-play";
