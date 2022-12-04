@@ -26,14 +26,13 @@ layout: default
 
 <script>
  var yt_player;
- var default_video = new Video('M7lc1UVf-VE');
  var playList = new PlayList();
- var youtubeIframeApi = new YoutubeIframeAPI();
  var videoControlPane = new VideoControlPane();
  var playListPane = new PlayListPane();
+ var youtubeIframeApi = new YoutubeIframeAPI();
 
  function onYouTubeIframeAPIReady() {
-     youtubeIframeApi.initPlayer(default_video);
+     youtubeIframeApi.initPlayer(playList[0]);
      videoControlPane.setPlayerAPI(youtubeIframeApi);
  }
 </script>

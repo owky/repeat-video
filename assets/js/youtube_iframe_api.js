@@ -12,8 +12,9 @@ class YoutubeIframeAPI {
   }
 
   initPlayer(video) {
+    var video_id = video ? video.id : null;
     this.yt_player = new YT.Player('player', {
-      videoId: video.id,
+      videoId: video_id,
       events: { }
     });
   }
