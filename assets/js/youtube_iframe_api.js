@@ -24,7 +24,6 @@ class YoutubeIframeAPI {
   }
 
   play() {
-    console.log("play api");
     var state = this.yt_player.getPlayerState();
     if (state == 1) {
       this.yt_player.pauseVideo();
@@ -44,5 +43,9 @@ class YoutubeIframeAPI {
 
   forward() {
     this.yt_player.seekTo(this.yt_player.getCurrentTime() + 10);
+  }
+
+  changeSpeed(speed) {
+    this.yt_player.setPlaybackRate(speed);
   }
 }
