@@ -19,6 +19,17 @@ class YoutubeIframeAPI {
     });
   }
 
+  isRepeatable() {
+    if (!this.yt_player) return false;
+    if (typeof this.yt_player.getPlayerState != "function") return false;
+    if (this.yt_player.getPlayerState() != 1) return false;
+    return true;
+  }
+
+  getCurrentTime() {
+    return this.yt_player.getCurrentTime();
+  }
+
   load(video) {
     this.yt_player.loadVideoById(video.id);
   }
@@ -43,6 +54,10 @@ class YoutubeIframeAPI {
 
   forward() {
     this.yt_player.seekTo(this.yt_player.getCurrentTime() + 10);
+  }
+
+  seekTo(time) {
+    this.yt_player.seekTo(time);
   }
 
   changeSpeed(speed) {

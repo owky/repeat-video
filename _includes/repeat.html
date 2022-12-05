@@ -1,10 +1,10 @@
 <div class="box has-text-centered">
     <p class="heading">
-        <span id="repeat-toggle" onclick="toggleRepeat()">Repeat</span>
+        <span id="repeat-toggle">Repeat</span>
     </p>
     <div class="columns is-vcentered is-mobile">
         <div class="column">
-            <span class="icon" onclick="repeatFrom()">
+            <span class="icon" id="video-control-repeat-from">
                 <i class="fas fa-lg fa-redo"></i>
             </span>
             <input class="input is-small has-text-centered" type="number" id="repeatFrom" placeholder="FROM">
@@ -13,7 +13,7 @@
             〜
         </div>
         <div class="column is-5">
-            <span class="icon" onclick="repeatTo()">
+            <span class="icon" id="video-control-repeat-to">
                 <i class="fas fa-2x fa-angle-double-left"></i>
             </span>
             <input class="input is-small has-text-centered" type="number" id="repeatTo" placeholder="TO">

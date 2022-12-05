@@ -7,16 +7,31 @@ class VideoControlPane {
       "video-control-forward": this.forward,
       "video-control-speed-down": this.speedDown,
       "video-control-speed-up": this.speedUp,
-      "video-control-speed-slider": this.changeSpeed
+      "video-control-speed-slider": this.changeSpeed,
+      "repeat-toggle": this.toggleRepeat,
+      "video-control-repeat-from": this.repeatFrom,
+      "video-control-repeat-to": this.repeatTo
     }
     for(const [k,v] of Object.entries(event_target)) {
       document.getElementById(k).addEventListener('click', v.bind(this));
     }
+
+    this.repeat = false;
+    setInterval(this.repeater.bind(this), 500);
   }
 
   setPlayerAPI(api) {
     this.player_api = api;
   }
+
+  getRepeatFrom() {
+    return parseInt(document.getElementById("repeatFrom").value);
+  }
+
+  getRepeatTo() {
+    return parseInt(document.getElementById("repeatTo").value);
+  }
+
 
   change(video) {
     this.video = video;
@@ -62,5 +77,40 @@ class VideoControlPane {
   changeSpeed() {
 	  document.getElementById("speed").innerHTML = this.getSpeed().toFixed(2);
 	  this.player_api.changeSpeed(this.getSpeed());
+  }
+
+  repeatOn () {
+	  document.getElementById("repeat-toggle").className = "has-text-primary has-text-weight-bold";
+	  this.repeat = true;
+  }
+
+  repeatOff () {
+	  document.getElementById("repeat-toggle").className = "";
+	  this.repeat = false;
+  }
+
+  toggleRepeat () {
+	  this.repeat ? this.repeatOff() : this.repeatOn() ;
+  }
+
+  repeatFrom () {
+	  this.repeatOn()
+	  document.getElementById("repeatFrom").value = this.player_api.getCurrentTime().toFixed();
+}
+
+  repeatTo () {
+	  this.repeatOn();
+	  document.getElementById("repeatTo").value = this.player_api.getCurrentTime().toFixed();
+}
+
+  repeater () {
+    if (!this.player_api) return;
+    if (!(this.player_api.isRepeatable())) return;
+    if (!this.repeat) return;
+    if (!this.getRepeatFrom() || !this.getRepeatTo()) return;
+
+    if (this.player_api.getCurrentTime().toFixed(0) == this.getRepeatTo()) {
+      this.player_api.seekTo(this.getRepeatFrom());
+    }
   }
 }
