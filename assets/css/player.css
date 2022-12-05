@@ -1,3 +1,9 @@
 #player {
 	  width: 100%;
 }
+
+.overlay-on-bottom-right {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}

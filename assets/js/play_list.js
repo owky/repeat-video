@@ -10,6 +10,11 @@ class PlayList extends Array {
     this.save();
   }
 
+  remove(video) {
+    this.splice(this.indexOf(video), 1);
+    this.save();
+  }
+
   save() {
     window.localStorage.setItem('play_list', JSON.stringify(this));
   }

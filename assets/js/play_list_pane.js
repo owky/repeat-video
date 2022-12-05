@@ -1,16 +1,20 @@
 class PlayListPane {
   constructor() {
     this.pane = document.getElementById("play-list-pane")
-
-    playList.forEach((video) => {
-      var card = new VideoCard(video).create();
-      this.pane.appendChild(card);
-    });
+    this.refresh();
   }
 
   add(video) {
     var card = new VideoCard(video).create();
 		this.pane.appendChild(card);
+  }
+
+  refresh() {
+    this.pane.innerHTML = "";
+    playList.forEach((video) => {
+      var card = new VideoCard(video).create();
+      this.pane.appendChild(card);
+    });
   }
 }
 
@@ -23,6 +27,13 @@ class VideoCard {
     var vid = this.video.id;
 		var title = this.video.title;
 		var thumbnail = this.video.thumbnail;
+
+    // remove-icon
+    var remove_span = document.createElement('span');
+    remove_span.setAttribute('class', 'icon overlay-on-bottom-right');
+    var remove_icon = document.createElement('i');
+    remove_icon.setAttribute('class', 'fas fa-2x fa-times-circle');
+    remove_span.appendChild(remove_icon);
 
 		// card-image
 		var cardImage = document.createElement('div');
@@ -42,6 +53,8 @@ class VideoCard {
 		p.innerHTML = title;
 		cardHeader.appendChild(p);
 
+    cardHeader.appendChild(remove_span);
+
 		// card
 		var card = document.createElement('div');
 		card.setAttribute('class', 'card');
@@ -50,11 +63,17 @@ class VideoCard {
 
     // add event
     img.addEventListener('click', this.change.bind(this));
+    remove_span.addEventListener('click', this.removee.bind(this));
 
     return card;
   }
 
   change() {
     videoControlPane.change(this.video);
+  }
+
+  removee() {
+    playList.remove(this.video);
+    playListPane.refresh();
   }
 }
