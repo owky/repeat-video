@@ -11,11 +11,12 @@ class YoutubeIframeAPI {
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
   }
 
-  initPlayer(video) {
-    var video_id = video ? video.id : null;
+  initPlayer() {
     this.yt_player = new YT.Player('player', {
-      videoId: video_id,
-      events: { }
+      videoId: null,
+      events: {
+        'onReady': onPlayerReady
+      }
     });
   }
 
@@ -32,6 +33,7 @@ class YoutubeIframeAPI {
 
   load(video) {
     this.yt_player.loadVideoById(video.id);
+    this.yt_player.stopVideo();
   }
 
   play() {

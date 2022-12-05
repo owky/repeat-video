@@ -35,7 +35,12 @@ layout: default
  var youtubeSearchApi = new YoutubeSearchAPI();
 
  function onYouTubeIframeAPIReady() {
-     youtubeIframeApi.initPlayer(playList[0]);
+     youtubeIframeApi.initPlayer();
      videoControlPane.setPlayerAPI(youtubeIframeApi);
  }
+
+ function onPlayerReady() {
+     if (playList[0]) videoControlPane.load(playList[0]);
+ }
+
 </script>

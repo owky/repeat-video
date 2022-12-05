@@ -7,7 +7,6 @@ class VideoControlPane {
       "video-control-forward": this.forward,
       "video-control-speed-down": this.speedDown,
       "video-control-speed-up": this.speedUp,
-      "video-control-speed-slider": this.changeSpeed,
       "repeat-toggle": this.toggleRepeat,
       "video-control-repeat-from": this.repeatFrom,
       "video-control-repeat-to": this.repeatTo
@@ -33,10 +32,11 @@ class VideoControlPane {
   }
 
 
-  change(video) {
+  load(video) {
     this.video = video;
     this.player_api.load(video);
-    document.getElementById("playerStatus").className = "fas fa-2x fa-pause";
+    this.changeSpeed(video.speed);
+    document.getElementById("playerStatus").className = "fas fa-2x fa-play";
   }
 
   play() {
@@ -60,23 +60,19 @@ class VideoControlPane {
     this.player_api.forward();
   }
 
-  getSpeed() {
-	  return document.getElementById("video-control-speed-slider").value / 100;
-  }
-
   speedDown() {
-	  document.getElementById("video-control-speed-slider").stepDown();
-	  this.changeSpeed();
+    this.changeSpeed(this.video.speed <= 0 ? 0 : this.video.speed - 0.05);
   }
 
   speedUp() {
-	  document.getElementById("video-control-speed-slider").stepUp();
-	  this.changeSpeed();
+	  this.changeSpeed(this.video.speed >= 1.0 ? 1.0 : this.video.speed + 0.05);
   }
 
-  changeSpeed() {
-	  document.getElementById("speed").innerHTML = this.getSpeed().toFixed(2);
-	  this.player_api.changeSpeed(this.getSpeed());
+  changeSpeed(speed) {
+	  document.getElementById("speed").innerHTML = speed.toFixed(2);
+	  this.player_api.changeSpeed(speed);
+    this.video.speed = speed;
+    playList.save();
   }
 
   repeatOn () {

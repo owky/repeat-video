@@ -26,11 +26,11 @@ class YoutubeSearchAPI {
       fetch(api + "?part=snippet&q=" + query + "&access_token=" + api_access_token)
         .then(response => response.json())
         .then(json => {
-          var result = json.items.map(item => new Video(
-              item["id"]["videoId"],
-              item["snippet"]["title"],
-              item["snippet"]["thumbnails"]["high"]["url"]
-          ));
+          var result = json.items.map(item => new Video({
+            "id": item["id"]["videoId"],
+            "title": item["snippet"]["title"],
+            "thumbnail": item["snippet"]["thumbnails"]["high"]["url"]
+          }));
           searchPane.show(result);
         })
     }

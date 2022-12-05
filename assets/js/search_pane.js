@@ -59,6 +59,6 @@ class ResultCard {
 
   play() {
     playList.add(this.video);
-    videoControlPane.change(this.video);
+    videoControlPane.load(this.video);
   }
 }

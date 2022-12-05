@@ -62,14 +62,14 @@ class VideoCard {
 		card.appendChild(cardHeader);
 
     // add event
-    img.addEventListener('click', this.change.bind(this));
+    img.addEventListener('click', this.load.bind(this));
     remove_span.addEventListener('click', this.removee.bind(this));
 
     return card;
   }
 
-  change() {
-    videoControlPane.change(this.video);
+  load() {
+    videoControlPane.load(this.video);
   }
 
   removee() {
