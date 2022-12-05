@@ -37,6 +37,8 @@ class VideoControlPane {
     this.player_api.load(video);
     this.changeSpeed(video.speed);
     document.getElementById("playerStatus").className = "fas fa-2x fa-play";
+    document.getElementById("repeatFrom").value = this.video.from;
+    document.getElementById("repeatTo").value = this.video.to;
   }
 
   play() {
@@ -91,13 +93,19 @@ class VideoControlPane {
 
   repeatFrom () {
 	  this.repeatOn()
-	  document.getElementById("repeatFrom").value = this.player_api.getCurrentTime().toFixed();
-}
+    var time = this.player_api.getCurrentTime().toFixed();
+	  document.getElementById("repeatFrom").value = time;
+    this.video.from = time;
+    playList.save();
+  }
 
   repeatTo () {
 	  this.repeatOn();
-	  document.getElementById("repeatTo").value = this.player_api.getCurrentTime().toFixed();
-}
+    var time = this.player_api.getCurrentTime().toFixed();
+	  document.getElementById("repeatTo").value = time;
+    this.video.to = time;
+    playList.save();
+  }
 
   repeater () {
     if (!this.player_api) return;
