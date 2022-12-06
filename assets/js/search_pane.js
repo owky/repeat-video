@@ -23,36 +23,20 @@ class ResultCard {
   }
 
   create() {
-    var vid = this.video.id;
-		var title = this.video.title;
-		var thumbnail = this.video.thumbnail;
+    let card = document.createElement('div');
+    card.setAttribute('class', 'card');
+    card.innerHTML = `
+<div class='card-image'>
+  <figure class='image is4by3'>
+    <img src='${this.video.thumbnail}'></img>
+  </figure>
+</div>
+<header class='card-header'>
+  <p class='card-header-title'>${this.video.title}</p>
+</header>
+`;
 
-		// card-image
-		var cardImage = document.createElement('div');
-		cardImage.setAttribute('class', 'card-image');
-		var figure = document.createElement('figure');
-		figure.setAttribute('class', 'image is-4by3');
-		var img = document.createElement('img');
-		img.setAttribute('src', thumbnail);
-		cardImage.appendChild(figure);
-		figure.appendChild(img);
-
-		// card-header
-		var cardHeader = document.createElement('header');
-		cardHeader.setAttribute('class', 'card-header');
-		var p = document.createElement('p');
-		p.setAttribute('class', 'card-header-title');
-		p.innerHTML = title;
-		cardHeader.appendChild(p);
-
-		// card
-		var card = document.createElement('div');
-		card.setAttribute('class', 'card');
-		card.appendChild(cardImage);
-		card.appendChild(cardHeader);
-
-    // add event
-    img.addEventListener('click', this.play.bind(this));
+    card.getElementsByTagName('img')[0].addEventListener('click', this.play.bind(this));
 
     return card;
   }
