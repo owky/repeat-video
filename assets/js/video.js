@@ -1,10 +1,10 @@
 class Video {
   constructor(obj) {
-    this.id = obj.id ? obj.id : null;
-    this.title = obj.title ? obj.title : "No title.";
-    this.thumbnail = obj.thumbnail ? obj.thumbnail : "";
-    this.speed = obj.speed ? obj.speed : 1;
-    this.from = obj.from ? obj.from : null;
-    this.to = obj.to ? obj.to : null;
+    this.id = whichever_exists(obj.id, null);
+    this.title = whichever_exists(obj.title, "No title.");
+    this.thumbnail = whichever_exists(obj.thumbnail, "");
+    this.speed = whichever_exists(obj.speed, 1);
+    this.from = whichever_exists(obj.from, null);
+    this.to = whichever_exists(obj.from, null);
   }
 }

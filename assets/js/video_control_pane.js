@@ -1,6 +1,13 @@
 class VideoControlPane {
   constructor() {
-    var event_target = {
+    this.repeat = false;
+    this.repeat_from_field = document.getElementById("repeat-from");
+    this.repeat_to_field = document.getElementById("repeat-to");
+    this.player_state_icon = document.getElementById("player-state");
+    this.speed_label = document.getElementById("speed");
+    this.repeat_toggle = document.getElementById("repeat-toggle");
+
+    let events = {
       "video-control-play": this.play,
       "video-control-back-to-top": this.backToTop,
       "video-control-backward": this.backward,
@@ -11,11 +18,10 @@ class VideoControlPane {
       "video-control-repeat-from": this.repeatFrom,
       "video-control-repeat-to": this.repeatTo
     }
-    for(const [k,v] of Object.entries(event_target)) {
-      document.getElementById(k).addEventListener('click', v.bind(this));
+    for (let id in events) {
+      document.getElementById(id).addEventListener('click', events[id].bind(this));
     }
 
-    this.repeat = false;
     setInterval(this.repeater.bind(this), 500);
   }
 
@@ -24,11 +30,11 @@ class VideoControlPane {
   }
 
   getRepeatFrom() {
-    return parseInt(document.getElementById("repeatFrom").value);
+    return parseInt(this.repeat_from_field.value);
   }
 
   getRepeatTo() {
-    return parseInt(document.getElementById("repeatTo").value);
+    return parseInt(this.repeat_to_field.value);
   }
 
 
@@ -36,17 +42,17 @@ class VideoControlPane {
     this.video = video;
     this.player_api.load(video);
     this.changeSpeed(video.speed);
-    document.getElementById("playerStatus").className = "fas fa-2x fa-play";
-    document.getElementById("repeatFrom").value = this.video.from;
-    document.getElementById("repeatTo").value = this.video.to;
+    this.player_state_icon.className = "fas fa-2x fa-play";
+    this.repeat_from_field.value = this.video.from;
+    this.repeat_to_field.value = this.video.to;
   }
 
   play() {
     var state = this.player_api.play();
     if (state == 1) {
-      document.getElementById("playerStatus").className = "fas fa-2x fa-play";
+      this.player_state_icon.className = "fas fa-2x fa-play";
     } else {
-      document.getElementById("playerStatus").className = "fas fa-2x fa-pause";
+      this.player_state_icon.className = "fas fa-2x fa-pause";
     }
   }
 
@@ -71,19 +77,19 @@ class VideoControlPane {
   }
 
   changeSpeed(speed) {
-	  document.getElementById("speed").innerHTML = speed.toFixed(2);
+	  this.speed_label.innerHTML = speed.toFixed(2);
 	  this.player_api.changeSpeed(speed);
     this.video.speed = speed;
     playList.save();
   }
 
   repeatOn () {
-	  document.getElementById("repeat-toggle").className = "has-text-primary has-text-weight-bold";
+	  this.repeat_toggle.className = "has-text-primary has-text-weight-bold";
 	  this.repeat = true;
   }
 
   repeatOff () {
-	  document.getElementById("repeat-toggle").className = "";
+	  this.repeat_toggle.className = "";
 	  this.repeat = false;
   }
 
@@ -93,16 +99,16 @@ class VideoControlPane {
 
   repeatFrom () {
 	  this.repeatOn()
-    var time = this.player_api.getCurrentTime().toFixed();
-	  document.getElementById("repeatFrom").value = time;
+    let time = this.player_api.getCurrentTime().toFixed();
+	  this.repeat_from_field.value = time;
     this.video.from = time;
     playList.save();
   }
 
   repeatTo () {
 	  this.repeatOn();
-    var time = this.player_api.getCurrentTime().toFixed();
-	  document.getElementById("repeatTo").value = time;
+    let time = this.player_api.getCurrentTime().toFixed();
+	  this.repeat_to_field.value = time;
     this.video.to = time;
     playList.save();
   }
