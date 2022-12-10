@@ -22,6 +22,10 @@ class VideoControlPane {
       document.getElementById(id).addEventListener('click', events[id].bind(this));
     }
 
+    [this.repeat_from_field, this.repeat_to_field].forEach(field => {
+      field.addEventListener('change', this.repeatIntervalChanged.bind(this));
+    });
+
     setInterval(this.repeater.bind(this), 500);
   }
 
@@ -36,7 +40,6 @@ class VideoControlPane {
   getRepeatTo() {
     return parseInt(this.repeat_to_field.value);
   }
-
 
   load(video) {
     this.video = video;
@@ -100,20 +103,22 @@ class VideoControlPane {
 	  this.repeat ? this.repeatOff() : this.repeatOn() ;
   }
 
+  repeatIntervalChanged () {
+    this.video.from = this.repeat_from_field.value;
+    this.video.to = this.repeat_to_field.value;
+    playList.save();
+  }
+
   repeatFrom () {
 	  this.repeatOn()
-    let time = this.player_api.getCurrentTime().toFixed();
-	  this.repeat_from_field.value = time;
-    this.video.from = time;
-    playList.save();
+	  this.repeat_from_field.value = this.player_api.getCurrentTime().toFixed();
+    this.repeatIntervalChanged();
   }
 
   repeatTo () {
 	  this.repeatOn();
-    let time = this.player_api.getCurrentTime().toFixed();
-	  this.repeat_to_field.value = time;
-    this.video.to = time;
-    playList.save();
+	  this.repeat_to_field.value = this.player_api.getCurrentTime().toFixed();
+    this.repeatIntervalChanged();
   }
 
   repeater () {
