@@ -119,14 +119,22 @@ class VideoControlPane {
 	  this.repeatOn();
 	  this.repeat_to_field.value = this.player_api.getCurrentTime().toFixed();
     this.repeatIntervalChanged();
+    if (this.isRepeatable()) {
+      this.player_api.seekTo(this.getRepeatFrom())
+    }
+  }
+
+  isRepeatable () {
+    if (!this.player_api) return false;
+    if (!(this.player_api.isRepeatable())) return false;
+    if (!this.repeat) return false;
+    if (isNaN(this.getRepeatFrom())) return false;
+    if (isNaN(this.getRepeatTo())) return false;
+    return true;
   }
 
   repeater () {
-    if (!this.player_api) return;
-    if (!(this.player_api.isRepeatable())) return;
-    if (!this.repeat) return;
-    if (!this.getRepeatFrom() || !this.getRepeatTo()) return;
-
+    if (!this.isRepeatable()) return
     if (this.player_api.getCurrentTime().toFixed(0) == this.getRepeatTo()) {
       this.player_api.seekTo(this.getRepeatFrom());
     }
