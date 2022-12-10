@@ -46,10 +46,6 @@ class YoutubeIframeAPI {
     return state;
   }
 
-  backToTop() {
-    this.yt_player.seekTo(0);
-  }
-
   backward() {
     this.yt_player.seekTo(this.yt_player.getCurrentTime() - 10);
   }

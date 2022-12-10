@@ -56,7 +56,11 @@ class VideoControlPane {
   }
 
   backToTop() {
-    this.player_api.backToTop();
+    if (this.repeat) {
+      this.player_api.seekTo(this.getRepeatFrom());
+    } else {
+      this.player_api.seekTo(0);
+    }
   }
 
   backward() {
