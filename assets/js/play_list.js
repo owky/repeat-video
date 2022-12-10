@@ -20,8 +20,11 @@ class PlayList extends Array {
   }
 
   load() {
-    JSON.parse(window.localStorage.getItem('play_list')).forEach((obj) => {
-      this.push(new Video(obj));
-    });
+    let list = JSON.parse(window.localStorage.getItem('play_list'));
+    if (list) {
+      list.forEach((obj) => {
+        this.push(new Video(obj));
+      });
+    }
   }
 }
