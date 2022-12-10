@@ -48,8 +48,7 @@ class VideoControlPane {
   }
 
   play() {
-    var state = this.player_api.play();
-    if (state == 1) {
+    if (this.player_api.play() == 1) {
       this.player_state_icon.className = "fas fa-2x fa-play";
     } else {
       this.player_state_icon.className = "fas fa-2x fa-pause";

@@ -5,9 +5,9 @@ class YoutubeIframeAPI {
   }
 
   loadAPI() {
-    var tag = document.createElement('script');
+    let tag = document.createElement('script');
+    let firstScriptTag = document.getElementsByTagName('script')[0];
     tag.src = "https://www.youtube.com/iframe_api";
-    var firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
   }
 
@@ -37,7 +37,7 @@ class YoutubeIframeAPI {
   }
 
   play() {
-    var state = this.yt_player.getPlayerState();
+    let state = this.yt_player.getPlayerState();
     if (state == 1) {
       this.yt_player.pauseVideo();
     } else {

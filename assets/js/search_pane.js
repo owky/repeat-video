@@ -2,11 +2,16 @@ class SearchPane {
   constructor() {
     this.result_pane = document.getElementById("result");
 
+    document.getElementById("youtube-api-oauth").addEventListener('click', this.oauth.bind(this));
     document.getElementById("youtube-api-search").addEventListener('click', this.search.bind(this));
   }
 
+  oauth() {
+    youtubeSearchApi.oauth();
+  }
+
   search() {
-    youtubeSearchApi.search();
+    youtubeSearchApi.search(document.getElementById("query").value);
   }
 
   show(result) {
