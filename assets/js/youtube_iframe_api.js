@@ -15,7 +15,8 @@ class YoutubeIframeAPI {
     this.yt_player = new YT.Player('player', {
       videoId: null,
       events: {
-        'onReady': onPlayerReady
+        'onReady': onPlayerReady,
+        'onStateChange': onPlayerStateChange
       }
     });
   }

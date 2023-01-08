@@ -1,7 +1,12 @@
 class PlayListPane {
   constructor() {
-    this.pane = document.getElementById("play-list-pane")
+    this.pane = document.getElementById("play-list-pane");
+    this.autoPlayToggle = document.getElementById("auto-play-toggle");
+    this.isAutoPlay = false;
+
     this.refresh();
+
+    this.autoPlayToggle.addEventListener('click', this.toggleAutoPlay.bind(this));
   }
 
   add(video) {
@@ -13,6 +18,16 @@ class PlayListPane {
     playList.forEach((video) => {
       this.pane.appendChild(new VideoCard(video).create());
     });
+  }
+
+  toggleAutoPlay() {
+    if (this.isAutoPlay) {
+      this.isAutoPlay = false;
+      this.autoPlayToggle.className = "icon-text has-text-grey";
+    } else {
+      this.isAutoPlay = true;
+      this.autoPlayToggle.className = "icon-text has-text-success";
+    }
   }
 }
 

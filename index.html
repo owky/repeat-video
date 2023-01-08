@@ -43,4 +43,11 @@ layout: default
      if (playList[0]) videoControlPane.load(playList[0]);
  }
 
+ function onPlayerStateChange(event) {
+     if (event.data == YT.PlayerState.ENDED && playListPane.isAutoPlay) {
+         videoControlPane.load(playList.nextOf(videoControlPane.video));
+         videoControlPane.play();
+     }
+ }
+
 </script>

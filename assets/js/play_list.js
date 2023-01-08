@@ -27,4 +27,13 @@ class PlayList extends Array {
       });
     }
   }
+
+  nextOf(video) {
+    let currentIndex = this.indexOf(video);
+    if (currentIndex == this.length) {
+      return undefined;
+    } else {
+      return this.at(currentIndex + 1);
+    }
+  }
 }
