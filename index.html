@@ -9,6 +9,7 @@ layout: default
     <div class="columns">
 
       <div class="column is-8">
+        <div id="keyCodeView"></div>
         <div id="player"></div>
         {% include control.html %}
         {% include change_speed.html %}
@@ -50,4 +51,7 @@ layout: default
      }
  }
 
+ document.addEventListener("keydown", keyEvent => {
+  document.getElementById("keyCodeView").innerHTML = keyEvent.key;
+ });
 </script>
