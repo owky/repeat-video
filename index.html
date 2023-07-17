@@ -52,6 +52,6 @@ layout: default
  }
 
  document.addEventListener("keydown", keyEvent => {
-  document.getElementById("keyCodeView").innerHTML = keyEvent.key;
+  document.getElementById("keyCodeView").innerHTML = keyEvent.key +" "+ keyEvent.keyCode;
  });
 </script>
