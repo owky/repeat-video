@@ -7,19 +7,16 @@ layout: default
 <section class="section">
   <div cass="container">
     <div class="columns">
-
-      <div class="column is-8">
-        <div id="player"></div>
+      <div class="column is-4">
         {% include control.html %}
         {% include change_speed.html %}
         {% include repeat.html %}
       </div>
-
-      <div class="column is-4">
-          {% include tab.html %}
+      <div class="column is-8">
+        <div id="player"></div>
       </div>
-
     </div>
+    {% include tab.html %}
   </div>
 
 </section>
