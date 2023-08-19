@@ -17,7 +17,8 @@ class YoutubeIframeAPI {
     this.yt_player = new YT.Player('player', {
       height: w * 9 / 16,
       width: w,
-      videoId: null, //'vMHCWDr4VXc'
+      videoId: null, //'vMHCWDr4VXc',
+      playerVars: { 'controls': 0, 'disablekb': 1, 'rel': 0 },
       events: {
         'onReady': onPlayerReady,
         'onStateChange': onPlayerStateChange
