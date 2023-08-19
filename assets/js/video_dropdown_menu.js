@@ -55,5 +55,6 @@ class VideoMenuItem {
   
   load() {
     videoControlPane.load(this.video);
+    window.scroll({top: 0, behavior: 'smooth'});
   }
 }
