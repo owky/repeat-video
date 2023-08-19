@@ -1,6 +1,7 @@
 class VideoControlPane {
   constructor() {
     this.repeat = false;
+    this.keep_keydown = 0;
     this.repeat_from_field = document.getElementById("repeat-from");
     this.repeat_to_field = document.getElementById("repeat-to");
     this.player_state_icon = document.getElementById("player-state");
@@ -25,6 +26,9 @@ class VideoControlPane {
     [this.repeat_from_field, this.repeat_to_field].forEach(field => {
       field.addEventListener('change', this.repeatIntervalChanged.bind(this));
     });
+
+    document.addEventListener('keydown', this.keyDownEvent.bind(this));
+    document.addEventListener('keyup', this.keyUpEvent.bind(this));
 
     setInterval(this.repeater.bind(this), 500);
   }
@@ -137,6 +141,35 @@ class VideoControlPane {
     if (!this.isRepeatable()) return
     if (this.player_api.getCurrentTime().toFixed(0) == this.getRepeatTo()) {
       this.player_api.seekTo(this.getRepeatFrom());
+    }
+  }
+
+  keyDownEvent (e) {
+    switch(e.keyCode) {
+      case 179:
+        this.play();
+        break;
+      case 227:
+        if(this.keep_keydown == 15) {
+          this.backToTop();
+          this.keep_keydown = -1;
+        } else {
+          if (this.keep_keydown >= 0) this.keep_keydown += 1
+          console.log(this.keep_keydown);
+        }
+        break;
+      case 228:
+        this.forward();
+        break;
+    }
+  }
+
+  keyUpEvent (e) {
+    switch(e.keyCode) {
+      case 227:
+        if (this.keep_keydown > 0) this.backward()
+        this.keep_keydown = 0;
+        break;
     }
   }
 }
