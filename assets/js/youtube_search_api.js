@@ -1,30 +1,38 @@
-//access_tokenが含まれるリクエストが来たらアクセストークンを保存
-let api_access_token;
-if (window.location.href.match(/#access_token=.+/)) {
-    api_access_token = window.location.href.split("#")[1].split("&")[0].split("=")[1];
-}
+const SCOPES = 'https://www.googleapis.com/auth/youtube.readonly';
+const CLIENT_ID = '78497601953-ku5qkb7bc9t00irnui7ofjvgh3ecjh4r.apps.googleusercontent.com';
 
 class YoutubeSearchAPI {
-  oauth_url = "https://accounts.google.com/o/oauth2/auth"
-    + "?client_id=828562580542-6hmetuuhj9rtavsdsghp1jn16f5m97pl.apps.googleusercontent.com"
-    + "&redirect_uri=https://" + location.host
-    + "&response_type=token&scope=https://www.googleapis.com/auth/youtube.readonly";
-
   constructor() {
+    this.accessToken = null;
+    this.tokenExpiresAt = null;
   }
 
   oauth() {
-    window.location.href = this.oauth_url;
+    google.accounts.oauth2.initTokenClient({
+      client_id: CLIENT_ID,
+      scope: SCOPES,
+      callback: (response) => {
+        this.access_token = response.access_token;
+        this.tokenExpiresAt = new Date().getTime() + response.expires_in * 1000;
+        this.search(document.getElementById("query").value);
+      }
+    }).requestAccessToken();
+  }
+
+  isTokenExpired() {
+    return new Date().getTime() > this.tokenExpiresAt;
   }
 
   search_api(query) {
     return "https://www.googleapis.com/youtube/v3/search"
       + "?part=snippet&q=" + encodeURI(query)
-      + "&access_token=" + api_access_token
+      + "&access_token=" + this.access_token
   }
 
   search(query) {
-    if (api_access_token) {
+    if (!this.access_token || this.isTokenExpired()) {
+      this.oauth();
+    } else {
       fetch(this.search_api(query))
         .then(response => response.json())
         .then(json => {
