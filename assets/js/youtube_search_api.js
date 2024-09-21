@@ -1,10 +1,19 @@
-const SCOPES = 'https://www.googleapis.com/auth/youtube.readonly';
+const APP_ID = "MyYoutubePlayer";
+const SCOPES = 'openid profile email https://www.googleapis.com/auth/youtube.readonly';
 const CLIENT_ID = '78497601953-ku5qkb7bc9t00irnui7ofjvgh3ecjh4r.apps.googleusercontent.com';
+
+function store() {
+  localStorage.setItem(APP_ID, JSON.stringify(data));
+}
+
+function load() {
+  return JSON.parse(localStorage.getItem(APP_ID)) || {};
+}
+
+let data = load();
 
 class YoutubeSearchAPI {
   constructor() {
-    this.accessToken = null;
-    this.tokenExpiresAt = null;
   }
 
   oauth() {
@@ -12,25 +21,34 @@ class YoutubeSearchAPI {
       client_id: CLIENT_ID,
       scope: SCOPES,
       callback: (response) => {
-        this.access_token = response.access_token;
-        this.tokenExpiresAt = new Date().getTime() + response.expires_in * 1000;
+        data.accessToken = response.access_token;
+        data.tokenExpiresAt = new Date().getTime() + response.expires_in * 1000;
+        store();
+
+        fetch("https://www.googleapis.com/oauth2/v3/userinfo?access_token=" + data.accessToken)
+          .then(response => response.json())
+          .then(json => {
+            data.sub = json.sub;
+            store();
+          })
+
         this.search(document.getElementById("query").value);
       }
     }).requestAccessToken();
   }
 
   isTokenExpired() {
-    return new Date().getTime() > this.tokenExpiresAt;
+    return new Date().getTime() > data.tokenExpiresAt;
   }
 
   search_api(query) {
     return "https://www.googleapis.com/youtube/v3/search"
       + "?part=snippet&q=" + encodeURI(query)
-      + "&access_token=" + this.access_token
+      + "&access_token=" + data.accessToken
   }
 
   search(query) {
-    if (!this.access_token || this.isTokenExpired()) {
+    if (!data.accessToken || this.isTokenExpired()) {
       this.oauth();
     } else {
       fetch(this.search_api(query))
