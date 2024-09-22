@@ -37,7 +37,7 @@ exports.handler = async function(event, context) {
       console.log("Method : POST");
       console.log(JSON.parse(event.body));
 
-      ref.set(JSON.parse(event.body));
+      ref.update(JSON.parse(event.body));
       status = 201;
       break;
     default:

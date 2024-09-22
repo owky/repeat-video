@@ -14,7 +14,7 @@ layout: default
         {% include repeat.html %}
       </div>
       <div class="column is-8">
-        <div id="player"></div>
+          <div id="player"></div>
       </div>
     </div>
     {% include tab.html %}
@@ -22,7 +22,14 @@ layout: default
 </section>
 
 <script>
+ const APP_ID = "MyYoutubePlayer";
+
  let appData = JSON.parse(localStorage.getItem(APP_ID)) || {};
+
+ if (!appData.sub) {
+     requestToken();
+     store();
+ }
 
  var yt_player;
  var playList = new PlayList();
@@ -48,5 +55,10 @@ layout: default
          videoControlPane.load(playList.nextOf(videoControlPane.video));
          videoControlPane.play();
      }
+ }
+
+ function store() {
+     localStorage.setItem(APP_ID, JSON.stringify(appData));
+     databaseStore();
  }
 </script>

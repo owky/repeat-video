@@ -1,10 +1,31 @@
-const APP_ID = "MyYoutubePlayer";
 const SCOPES = 'openid profile email https://www.googleapis.com/auth/youtube.readonly';
 const CLIENT_ID = '78497601953-ku5qkb7bc9t00irnui7ofjvgh3ecjh4r.apps.googleusercontent.com';
+const GOOGLE_API_USER_INFO_URL = 'https://www.googleapis.com/oauth2/v3/userinfo'
 
-function store() {
-  localStorage.setItem(APP_ID, JSON.stringify(data));
-  databaseStore();
+function requestToken() {
+  google.accounts.oauth2.initTokenClient({
+    client_id: CLIENT_ID,
+    scope: SCOPES,
+    callback: storeAccessToken
+  }).requestAccessToken();
+}
+
+function storeAccessToken(response) {
+  appData.accessToken = response.access_token;
+  appData.tokenExpiresAt = new Date().getTime() + response.expires_in * 1000;
+  store();
+
+  if (!appData.sub) requestIdToken();
+}
+
+function requestIdToken() {
+  url = GOOGLE_API_USER_INFO_URL + "?access_token=" + appData.accessToken;
+  fetch(url)
+    .then(response => response.json())
+    .then(json => {
+      appData.sub = json.sub;
+      store();
+    })
 }
 
 class YoutubeSearchAPI {
@@ -19,13 +40,6 @@ class YoutubeSearchAPI {
         appData.accessToken = response.access_token;
         appData.tokenExpiresAt = new Date().getTime() + response.expires_in * 1000;
         store();
-
-        fetch("https://www.googleapis.com/oauth2/v3/userinfo?access_token=" + appData.accessToken)
-          .then(response => response.json())
-          .then(json => {
-            appData.sub = json.sub;
-            store();
-          })
 
         this.search(document.getElementById("query").value);
       }
