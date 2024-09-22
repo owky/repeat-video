@@ -22,6 +22,8 @@ layout: default
 </section>
 
 <script>
+ let appData = JSON.parse(localStorage.getItem(APP_ID)) || {};
+
  var yt_player;
  var playList = new PlayList();
  var videoControlPane = new VideoControlPane();
