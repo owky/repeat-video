@@ -5,6 +5,18 @@ const firestore = new Firestore({
   credentials: JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT)
 });
 
+async function createIfNotExists(id) {
+  docRef = firestore.collection('users').doc(id);
+
+  doc = await docRef.get();
+
+  if (doc.exists) {
+    return;
+  } else {
+    await docRef.create({});
+  }
+}
+
 exports.handler = async function(event, context) {
   try {
     let status = null;
@@ -13,6 +25,8 @@ exports.handler = async function(event, context) {
     const match = event.path.match(/\/firestore\/(.*)$/);
     const id =  match ? match[1] : null;
     const ref = firestore.collection('users').doc(id);
+
+    await createIfNotExists(id);
 
     switch (event.httpMethod) {
     case 'GET':

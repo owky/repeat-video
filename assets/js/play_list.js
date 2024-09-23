@@ -21,6 +21,7 @@ class PlayList extends Array {
 
   load() {
     if (!JSON.parse(localStorage.getItem(APP_ID))) return;
+    if (!JSON.parse(localStorage.getItem(APP_ID)).playList) return;
 
     JSON.parse(localStorage.getItem(APP_ID)).playList.forEach((obj) => {
       this.push(new Video(obj));
