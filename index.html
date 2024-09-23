@@ -24,22 +24,41 @@ layout: default
 <script>
  const APP_ID = "MyYoutubePlayer";
 
- let appData = JSON.parse(localStorage.getItem(APP_ID)) || {};
-
- if (!appData.sub) {
-     requestToken();
-     store();
- }
-
  var yt_player;
  var playList = new PlayList();
- var videoControlPane = new VideoControlPane();
- var playListPane = new PlayListPane();
- var searchPane = new SearchPane();
- var tabPane = new TabPane();
- var videoDropdownMenu = new VideoDropdownMenu();
- var youtubeIframeApi = new YoutubeIframeAPI();
- var youtubeSearchApi = new YoutubeSearchAPI();
+ var videoControlPane;
+ var playListPane;
+ var searchPane;
+ var tabPane;
+ var videoDropdownMenu;
+ var youtubeIframeApi;
+ var youtubeSearchApi;
+
+ function init() {
+     videoControlPane = new VideoControlPane();
+     playListPane = new PlayListPane();
+     searchPane = new SearchPane();
+     tabPane = new TabPane();
+     videoDropdownMenu = new VideoDropdownMenu();
+     youtubeIframeApi = new YoutubeIframeAPI();
+     youtubeSearchApi = new YoutubeSearchAPI();
+ }
+
+ let appData = JSON.parse(localStorage.getItem(APP_ID)) || {};
+ if (!appData.sub) {
+     requestAccessToken(() => {
+         requestIdToken(() => {
+             databaseLoad(() => {
+                 store();
+                 playList.load();
+                 init();
+             })
+         })
+     });
+ } else {
+     playList.load();
+     init();
+ }
 
  function onYouTubeIframeAPIReady() {
      youtubeIframeApi.initPlayer();

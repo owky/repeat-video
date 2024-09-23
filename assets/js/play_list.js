@@ -1,7 +1,6 @@
 class PlayList extends Array {
   constructor() {
     super();
-    this.load();
   }
 
   add(video) {
@@ -16,16 +15,16 @@ class PlayList extends Array {
   }
 
   save() {
-    window.localStorage.setItem('play_list', JSON.stringify(this));
+    appData.playList = this;
+    store();
   }
 
   load() {
-    let list = JSON.parse(window.localStorage.getItem('play_list'));
-    if (list) {
-      list.forEach((obj) => {
-        this.push(new Video(obj));
-      });
-    }
+    if (!JSON.parse(localStorage.getItem(APP_ID))) return;
+
+    JSON.parse(localStorage.getItem(APP_ID)).playList.forEach((obj) => {
+      this.push(new Video(obj));
+    });
   }
 
   nextOf(video) {

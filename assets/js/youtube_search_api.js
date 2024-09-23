@@ -2,29 +2,32 @@ const SCOPES = 'openid profile email https://www.googleapis.com/auth/youtube.rea
 const CLIENT_ID = '78497601953-ku5qkb7bc9t00irnui7ofjvgh3ecjh4r.apps.googleusercontent.com';
 const GOOGLE_API_USER_INFO_URL = 'https://www.googleapis.com/oauth2/v3/userinfo'
 
-function requestToken() {
+function requestAccessToken(callback) {
+  callback ||= function(){return;};
+
   google.accounts.oauth2.initTokenClient({
     client_id: CLIENT_ID,
     scope: SCOPES,
-    callback: storeAccessToken
+    callback: (response) => {
+      appData.accessToken = response.access_token;
+      appData.tokenExpiresAt = new Date().getTime() + response.expires_in * 1000;
+
+      callback();
+    }
   }).requestAccessToken();
 }
 
-function storeAccessToken(response) {
-  appData.accessToken = response.access_token;
-  appData.tokenExpiresAt = new Date().getTime() + response.expires_in * 1000;
-  store();
+function requestIdToken(callback) {
+  callback ||= function(){return;};
 
-  if (!appData.sub) requestIdToken();
-}
-
-function requestIdToken() {
   url = GOOGLE_API_USER_INFO_URL + "?access_token=" + appData.accessToken;
+
   fetch(url)
     .then(response => response.json())
     .then(json => {
       appData.sub = json.sub;
-      store();
+
+      callback();
     })
 }
 

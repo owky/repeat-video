@@ -155,7 +155,6 @@ class VideoControlPane {
           this.keep_keydown = -1;
         } else {
           if (this.keep_keydown >= 0) this.keep_keydown += 1
-          console.log(this.keep_keydown);
         }
         break;
       case 228:
