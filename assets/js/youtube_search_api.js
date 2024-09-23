@@ -3,6 +3,7 @@ const CLIENT_ID = '78497601953-ku5qkb7bc9t00irnui7ofjvgh3ecjh4r.apps.googleuserc
 const GOOGLE_API_USER_INFO_URL = 'https://www.googleapis.com/oauth2/v3/userinfo'
 
 function requestAccessToken(callback) {
+  console.log("request access token");
   callback ||= function(){return;};
 
   google.accounts.oauth2.initTokenClient({
@@ -18,6 +19,7 @@ function requestAccessToken(callback) {
 }
 
 function requestIdToken(callback) {
+  console.log("request id token");
   callback ||= function(){return;};
 
   url = GOOGLE_API_USER_INFO_URL + "?access_token=" + appData.accessToken;
