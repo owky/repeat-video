@@ -1,5 +1,5 @@
-const SCOPES = 'openid profile email https://www.googleapis.com/auth/youtube.readonly';
-const CLIENT_ID = '78497601953-ku5qkb7bc9t00irnui7ofjvgh3ecjh4r.apps.googleusercontent.com';
+//const SCOPES = 'openid profile email https://www.googleapis.com/auth/youtube.readonly';
+//const CLIENT_ID = '78497601953-ku5qkb7bc9t00irnui7ofjvgh3ecjh4r.apps.googleusercontent.com';
 const GOOGLE_API_USER_INFO_URL = 'https://www.googleapis.com/oauth2/v3/userinfo'
 
 function requestAccessToken(callback) {

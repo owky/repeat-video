@@ -15,8 +15,8 @@ function databaseStore() {
 
 function databaseLoad(callback) {
   if(!appData.sub) {return;}
-
   callback ||= function() {return;};
+
   url = window.location.origin +'/.netlify/functions/firestore/'+ appData.sub;
 
   fetch(url)

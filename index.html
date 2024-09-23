@@ -45,15 +45,15 @@ layout: default
  }
 
  let appData = JSON.parse(localStorage.getItem(APP_ID)) || {};
- if (!appData.sub) {
-     requestAccessToken(() => {
-         requestIdToken(() => {
-             databaseLoad(() => {
-                 store();
-                 playList.load();
-                 init();
-             })
-         })
+
+ if (isOAuthRedirect()) {
+     getAccessToken();
+     requestIdToken2(() => {
+         databaseLoad(() => {
+             store();
+             playList.load();
+             init();
+         });
      });
  } else {
      playList.load();
